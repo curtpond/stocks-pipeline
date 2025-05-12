@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: market_analysis
+    description: >
+      Final analytical model that combines stock metrics with GDP data to provide
+      a comprehensive view of stock performance in the context of economic conditions.
+    columns:
+      - name: symbol
+        description: Stock ticker symbol
+      - name: date
+        description: Trading date
+      - name: opening_price
+        description: Opening price of the stock
+      - name: high_price
+        description: Highest price during the trading day
+      - name: low_price
+        description: Lowest price during the trading day
+      - name: closing_price
+        description: Closing price of the stock
+      - name: volume
+        description: Number of shares traded
+      - name: relative_strength_index
+        description: RSI technical indicator
+      - name: daily_return
+        description: Daily percentage return calculated from closing prices
+      - name: ma_7_day
+        description: 7-day moving average of closing prices
+      - name: ma_30_day
+        description: 30-day moving average of closing prices
+      - name: volume_ma_7_day
+        description: 7-day moving average of trading volume
+      - name: latest_gdp
+        description: Most recent quarterly GDP value associated with the trading date

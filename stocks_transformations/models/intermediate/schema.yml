@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: int_stock_metrics
+    description: >
+      Intermediate model that calculates various stock metrics including daily returns
+      and moving averages for technical analysis.
+    columns:
+      - name: symbol
+        description: Stock ticker symbol
+      - name: date
+        description: Trading date
+      - name: opening_price
+        description: Opening price of the stock
+      - name: high_price
+        description: Highest price during the trading day
+      - name: low_price
+        description: Lowest price during the trading day
+      - name: closing_price
+        description: Closing price of the stock
+      - name: volume
+        description: Number of shares traded
+      - name: relative_strength_index
+        description: RSI technical indicator
+      - name: daily_return
+        description: Daily percentage return calculated from closing prices
+        tests:
+          - not_null
+      - name: ma_7_day
+        description: 7-day moving average of closing prices
+        tests:
+          - not_null
+      - name: ma_30_day
+        description: 30-day moving average of closing prices
+        tests:
+          - not_null
+      - name: volume_ma_7_day
+        description: 7-day moving average of trading volume
+        tests:
+          - not_null
