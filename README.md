@@ -48,6 +48,8 @@ SNOWFLAKE_WAREHOUSE=your_warehouse
   - `snowflake_loader.py`: Handles data loading into Snowflake
   - `tech_analysis.py`: Performs technical analysis on stock data
   - `test_endpoints.py`: Tests API endpoints
+- `SQL/`
+  - `setup_snowflake.sql`: SQL scripts for Snowflake setup and configuration
 - `.env`: Configuration file for credentials
 
 ## Data Schema
