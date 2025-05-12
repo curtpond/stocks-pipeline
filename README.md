@@ -43,8 +43,11 @@ SNOWFLAKE_WAREHOUSE=your_warehouse
 ```
 
 ## Project Structure
-- `fetch_stock_data.py`: Fetches stock data from Alpha Vantage
-- `snowflake_loader.py`: Handles data loading into Snowflake
+- `scripts/`
+  - `fetch_stock_data.py`: Fetches stock data from Alpha Vantage
+  - `snowflake_loader.py`: Handles data loading into Snowflake
+  - `tech_analysis.py`: Performs technical analysis on stock data
+  - `test_endpoints.py`: Tests API endpoints
 - `.env`: Configuration file for credentials
 
 ## Data Schema
@@ -66,11 +69,11 @@ SNOWFLAKE_WAREHOUSE=your_warehouse
 ## Usage
 1. Fetch stock data:
    ```bash
-   python fetch_stock_data.py
+   python scripts/fetch_stock_data.py
    ```
 2. Load data into Snowflake:
    ```bash
-   python snowflake_loader.py
+   python scripts/snowflake_loader.py
    ```
 
 ## Security Notes
