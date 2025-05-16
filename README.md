@@ -185,6 +185,17 @@ The data pipeline is orchestrated using Prefect with the following components:
 2. `load_to_snowflake`: Loads raw data into Snowflake
 3. `run_dbt_transformations`: Executes dbt models and tests
 
+Each task is designed to be idempotent and includes error handling for robustness.
+
+#### Pipeline Schedule
+
+The pipeline is configured to run automatically with the following schedule:
+
+- **Frequency**: Daily at midnight
+- **Monitoring**: Available through Prefect UI at [http://127.0.0.1:4200](http://127.0.0.1:4200)
+- **Logs**: Detailed execution logs for each task
+- **Error Handling**: Automatic retries on failure
+
 #### Running the Pipeline
 
 1. Start Prefect server:
@@ -199,6 +210,27 @@ The data pipeline is orchestrated using Prefect with the following components:
    cd flows
    python deployment.py
    ```
+
+3. Start a worker (in a new terminal):
+
+   ```bash
+   prefect worker start -p default-agent-pool
+   ```
+
+4. Trigger a manual run (optional):
+
+   ```bash
+   prefect deployment run 'Stock Data Pipeline/stock-pipeline-daily'
+   ```
+
+#### Monitoring
+
+1. Open Prefect UI at [http://127.0.0.1:4200](http://127.0.0.1:4200)
+2. View:
+   - Flow runs and their status
+   - Task execution logs
+   - Schedule information
+   - Error details if any
 
 3. Start a worker:
 
