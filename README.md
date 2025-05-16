@@ -24,6 +24,7 @@ This project fetches financial data, including tech stock prices and GDP data, l
 - Virtual environment (`stocks/`)
 - Snowflake account
 - Alpha Vantage API key
+- Prefect server (for pipeline orchestration)
 
 ## Installation
 
@@ -61,6 +62,9 @@ This project fetches financial data, including tech stock prices and GDP data, l
   - `snowflake_loader.py`: Handles data loading into Snowflake
   - `tech_analysis.py`: Performs technical analysis on stock data
   - `test_endpoints.py`: Tests API endpoints
+- `flows/`
+  - `stock_pipeline.py`: Main Prefect pipeline orchestration
+  - `deployment.py`: Prefect deployment configuration
 - `SQL/`
   - `setup_snowflake.sql`: SQL scripts for Snowflake setup and configuration
 - `stocks_transformations/` (dbt project)
@@ -170,6 +174,39 @@ Here are the most commonly used dbt commands:
 - `dbt build` - Run and test all models
 - `dbt docs generate` - Generate documentation
 - `dbt docs serve` - Serve documentation locally
+
+### Pipeline Orchestration
+
+The data pipeline is orchestrated using Prefect with the following components:
+
+#### Tasks
+
+1. `fetch_stock_data`: Retrieves data from Alpha Vantage API
+2. `load_to_snowflake`: Loads raw data into Snowflake
+3. `run_dbt_transformations`: Executes dbt models and tests
+
+#### Running the Pipeline
+
+1. Start Prefect server:
+
+   ```bash
+   prefect server start
+   ```
+
+2. Deploy the pipeline:
+
+   ```bash
+   cd flows
+   python deployment.py
+   ```
+
+3. Start a worker:
+
+   ```bash
+   prefect worker start -p default-agent-pool
+   ```
+
+The pipeline is scheduled to run daily at midnight, automatically fetching new data and updating the transformations.
 
 ## Security Notes
 
