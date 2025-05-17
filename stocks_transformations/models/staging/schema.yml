@@ -1,90 +1,38 @@
 version: 2
 
-sources:
-  - name: market_data
-    database: STOCKS_DB
-    schema: MARKET_DATA
-    description: Raw data from stock market and economic indicators
-    tables:
-      - name: TECH_STOCK_DATA
-        description: Daily stock data for major technology companies
-        columns:
-          - name: SYMBOL
-            description: Stock ticker symbol
-            tests:
-              - not_null
-          - name: DATE
-            description: Trading date
-            tests:
-              - not_null
-          - name: OPEN
-            description: Opening price of the stock
-            tests:
-              - not_null
-          - name: HIGH
-            description: Highest price during the trading day
-            tests:
-              - not_null
-          - name: LOW
-            description: Lowest price during the trading day
-            tests:
-              - not_null
-          - name: CLOSE
-            description: Closing price of the stock
-            tests:
-              - not_null
-          - name: VOLUME
-            description: Number of shares traded
-            tests:
-              - not_null
-          - name: RSI
-            description: Relative Strength Index (technical momentum indicator)
-            tests:
-              - not_null
-
-      - name: GDP_DATA
-        description: Quarterly Gross Domestic Product data
-        columns:
-          - name: DATE
-            description: Date of GDP measurement
-            tests:
-              - not_null
-          - name: GDP
-            description: GDP value in billions of dollars
-            tests:
-              - not_null
-          - name: LOAD_TIMESTAMP
-            description: Timestamp when the data was loaded
-            tests:
-              - not_null
-
 models:
   - name: stg_tech_stocks
-    description: Cleaned and renamed version of the raw tech stock data
+    config:
+      materialized: table
+      schema: MARKET_DATA
+    description: Cleaned tech stock data
     columns:
       - name: symbol
-        description: Stock ticker symbol
+        description: Stock symbol
       - name: date
         description: Trading date
       - name: opening_price
-        description: Opening price of the stock
+        description: Opening price
       - name: high_price
-        description: Highest price during the trading day
+        description: High price
       - name: low_price
-        description: Lowest price during the trading day
+        description: Low price
       - name: closing_price
-        description: Closing price of the stock
+        description: Closing price
       - name: volume
-        description: Number of shares traded
+        description: Trading volume
       - name: relative_strength_index
-        description: RSI technical indicator
+        description: RSI value
 
   - name: stg_gdp
-    description: Cleaned and renamed version of the raw GDP data
+    config:
+      materialized: table
+      schema: MARKET_DATA
+    description: Cleaned GDP data
     columns:
       - name: gdp_date
-        description: Date of GDP measurement
+        description: GDP reporting date
       - name: gdp_value
-        description: GDP value in billions of dollars
+        description: GDP value
       - name: load_timestamp
-        description: Timestamp when the data was loaded
+        description: Timestamp when data was loaded

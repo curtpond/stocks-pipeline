@@ -1,18 +1,11 @@
-with stock_metrics as (
-    select * from {{ ref('int_stock_metrics') }}
-),
+{{config(
+    materialized = 'table',
+    schema = 'MARKET_DATA'
+)}}
 
-gdp_data as (
-    select * from {{ ref('stg_gdp') }}
-),
-
-final as (
-    select
-        sm.*,
-        gd.gdp_value as latest_gdp
-    from stock_metrics sm
-    left join gdp_data gd
-        on date_trunc('quarter', sm.date) = date_trunc('quarter', gd.gdp_date)
-)
-
-select * from final
+select
+    sm.*,
+    gd.gdp_value as latest_gdp
+from STOCKS_DB.MARKET_DATA.INT_STOCK_METRICS sm
+left join STOCKS_DB.MARKET_DATA.STG_GDP gd
+    on date_trunc('quarter', sm.date) = date_trunc('quarter', gd.gdp_date)
